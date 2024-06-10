@@ -5,7 +5,7 @@ using UnityEngine;
 public class CollisionMamager : MonoBehaviour
 {
     [SerializeField] private GameObject car;
-    [SerializeField] private GameObject submarine;
+    [SerializeField] private GameObject helicopter;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -13,13 +13,15 @@ public class CollisionMamager : MonoBehaviour
         {
             if(car.gameObject.activeSelf)
             {
-                submarine.SetActive(true);
+                helicopter.SetActive(true);
                 car.SetActive(false);
+                car.transform.position = new Vector3(car.transform.position.x - 5.0f, car.transform.position.y, car.transform.position.z);
             }
             else
             {
-                submarine.SetActive(false);
+                helicopter.SetActive(false);
                 car.SetActive(true);
+
             }
         }
     }
