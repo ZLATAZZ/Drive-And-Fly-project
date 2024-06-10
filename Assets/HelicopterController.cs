@@ -24,7 +24,7 @@ public class HelicopterController : VehicleController
     private void RotateSubmarine()
     {
         // Apply rotation in local space based on direction input
-        float rotation = direction.x * speed * Time.deltaTime;
+        float rotation = direction.x * speed * 1.5f * Time.deltaTime;
         transform.Rotate(Vector3.up * rotation, Space.Self);
     }
 }

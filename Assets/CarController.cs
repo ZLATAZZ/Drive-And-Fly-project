@@ -35,15 +35,17 @@ public class CarController : VehicleController
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = customCenterOfMass.transform.localPosition;
+        GameManager.Instance.LoadChoice();
+
     }
 
     private void FixedUpdate()
     {
-       
+
 
         
 
-        if(GameManager.Instance.isBack == true && GameManager.Instance.isFront == false)
+        if (GameManager.Instance.isBack == true && GameManager.Instance.isFront == false)
         {
             currentTurnAngle = maxTurnAngle * direction.x;
             currentAcceleration = acceleration * -direction.y;

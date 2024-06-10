@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
+    
     public void UpdateScene()
     {
         SceneManager.LoadScene(1);
@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(saveData);
 
-        File.WriteAllText(Application.persistentDataPath + "/saveddata.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/savedata.json", json);
+        Debug.Log("Was Saved");
     }
 
     public void LoadChoice()
@@ -92,8 +93,21 @@ public class GameManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
-            saveData.isFront = isFront;
-            saveData.isBack = isBack;
+            isFront = saveData.isFront;
+            isBack = saveData.isBack;
+            
+            if(isFront)
+            {
+                front.isOn = true;
+                back.isOn = false;
+            }
+            if(isBack)
+            {
+                front.isOn = false;
+                back.isOn = true;
+            }
         }
+
+        
     }
 }
