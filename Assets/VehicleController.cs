@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class VehicleController : MonoBehaviour
 {
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     private PlayerInput playerInput;
     InputController inputController;
 
@@ -19,7 +19,7 @@ public class VehicleController : MonoBehaviour
 
     [SerializeField] private float jumpForce;
     public float acceleratorSpeed;
-    [SerializeField] private float speed;
+    public float speed;
 
     private void Awake()
     {
