@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XInput;
 
+
 public class CarController : VehicleController
 {
     [SerializeField] private WheelCollider frontRight;
@@ -28,6 +29,8 @@ public class CarController : VehicleController
     
     Rigidbody rb;
 
+   
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,21 +41,44 @@ public class CarController : VehicleController
     {
        
 
-        currentTurnAngle = maxTurnAngle * direction.x;
-        currentAcceleration = acceleration * -direction.y;
-       
-       
-        frontRight.motorTorque = currentAcceleration;
-        frontLeft.motorTorque = currentAcceleration;
         
 
-        frontRight.brakeTorque = currentBrakingForce;
-        backRight.brakeTorque = currentBrakingForce;
-        frontLeft.brakeTorque = currentBrakingForce;
-        backLeft.brakeTorque = currentBrakingForce;
+        if(GameManager.Instance.isBack == true && GameManager.Instance.isFront == false)
+        {
+            currentTurnAngle = maxTurnAngle * direction.x;
+            currentAcceleration = acceleration * -direction.y;
 
-        frontRight.steerAngle = currentTurnAngle;
-        frontLeft.steerAngle = currentTurnAngle;
+
+            frontRight.motorTorque = currentAcceleration;
+            frontLeft.motorTorque = currentAcceleration;
+
+
+            frontRight.brakeTorque = currentBrakingForce;
+            backRight.brakeTorque = currentBrakingForce;
+            frontLeft.brakeTorque = currentBrakingForce;
+            backLeft.brakeTorque = currentBrakingForce;
+            backRight.steerAngle = -currentTurnAngle;
+            backLeft.steerAngle = -currentTurnAngle;
+            Debug.Log("Is back");
+        }
+        if(GameManager.Instance.isFront == true && GameManager.Instance.isBack == false)
+        {
+            currentTurnAngle = maxTurnAngle * direction.x;
+            currentAcceleration = acceleration * -direction.y;
+
+
+            frontRight.motorTorque = currentAcceleration;
+            frontLeft.motorTorque = currentAcceleration;
+
+
+            frontRight.brakeTorque = currentBrakingForce;
+            backRight.brakeTorque = currentBrakingForce;
+            frontLeft.brakeTorque = currentBrakingForce;
+            backLeft.brakeTorque = currentBrakingForce;
+            frontRight.steerAngle = currentTurnAngle;
+            frontLeft.steerAngle = currentTurnAngle;
+            Debug.Log("Is front");
+        }
         
 
         UpdateWheel(frontRight, t_frontRight);
