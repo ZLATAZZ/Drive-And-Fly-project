@@ -2,10 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionMamager : MonoBehaviour
+public class CollisionManager : MonoBehaviour
 {
     [SerializeField] private GameObject car;
     [SerializeField] private GameObject helicopter;
+
+    [HideInInspector] public static int score;
+
+    public static CollisionManager Instance {  get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+        
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,6 +33,13 @@ public class CollisionMamager : MonoBehaviour
                 car.SetActive(true);
 
             }
+        }
+
+        if (collision.gameObject.CompareTag("Tire"))
+        {
+            score += 1;
+            GameManager.Instance.score = score;
+            GameManager.Instance.SaveChoice();
         }
     }
 }

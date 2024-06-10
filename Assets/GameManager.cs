@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [HideInInspector] public bool isFront;
     [HideInInspector] public bool isBack;
+    [HideInInspector] public int score;
 
-    [SerializeField] private Toggle front;
-    [SerializeField] private Toggle back;
+    public Toggle front;
+    public Toggle back;
 
     
 
@@ -35,42 +36,14 @@ public class GameManager : MonoBehaviour
         Debug.Log(Application.persistentDataPath);
     }
 
-    public void ChooseFrontWheel()
-    {
-        
-        if (front.isOn)
-        {
-            isFront = true;
-            isBack = false;
-            back.isOn = false;
-            
-        }
-        
-    }
-
-    public void ChooseBackWheel()
-    {
-        
-        if (back.isOn)
-        {
-            isFront = false;
-            isBack = true;
-            front.isOn = false;
-            
-        }
-        
-    }
     
-    public void UpdateScene()
-    {
-        SceneManager.LoadScene(1);
-    }
 
     [System.Serializable]
     public class SaveData
     {
         public bool isFront;
         public bool isBack;
+        public int score;
     }
 
     public void SaveChoice()
@@ -78,6 +51,7 @@ public class GameManager : MonoBehaviour
         SaveData saveData = new SaveData();
         saveData.isFront = isFront;
         saveData.isBack = isBack;
+        saveData.score = score;
 
         string json = JsonUtility.ToJson(saveData);
 
@@ -95,6 +69,7 @@ public class GameManager : MonoBehaviour
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
             isFront = saveData.isFront;
             isBack = saveData.isBack;
+            score = saveData.score;
             
             if(isFront)
             {
